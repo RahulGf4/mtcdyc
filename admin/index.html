@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="fwBooks">
+    <head>
+        <title data-ng-bind="page.title">Online Books - Shop in Freshersworld e-Store</title>
+        <meta charset="utf-8">
+        <meta name="description" content="books.freshersworld.com is Online Books Shopping in India. You can buy coaching books of GMAT, GRE, CAT Preparations etc. from here. Check out the best deals, Price Comparison, Offers of all">
+        <meta name="keywords" content="Books, Online Books, Book Store, Freshersworld books, Gate Books, GMAT Books, GRE Books, Aptitude Books, Engineering Books, Low Price Books">
+        <meta name="fragment" content="!">
+        <base href="/" />
+        <link rel="icon"s type="image/png"   href="resource/images/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="resource/bootstrap-3.3.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="resource/css/style.css" />
+        <link rel="stylesheet" href="resource/css/footer.css" />
+        <script src="resource/js/angular.min.js"></script>
+        <script src="resource/js/angular-route.js"></script>
+        <script src="ngApp/js/config.js" type="text/javascript"></script>
+        <script src="ngApp/js/core.js" type="text/javascript"></script>
+        <!-- Google Analytics Start -->
+			<script type="text/javascript">
+				function hide_div_byId(div_id) {
+					document.getElementById(div_id).style.display = 'none';
+				}
+				var _gaq = _gaq || [];
+				_gaq.push([ '_setCustomVar', 1, 'user', 'anonymous', 1 ]);
+				_gaq.push([ '_setAccount', 'UA-400510-1' ]);
+				_gaq.push([ '_setDomainName', 'freshersworld.com' ]);
+				_gaq.push([ '_trackPageview' ]);
+			
+				(function() {
+					var ga = document.createElement('script');
+					ga.type = 'text/javascript';
+					ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+							: 'http://www')
+							+ '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0];
+					s.parentNode.insertBefore(ga, s);
+				})();
+			</script>
+</head>
+    <body >
+        <div id="container" class="cointainer" ng-controller='main_search'>
+        <div id="header" class="row">
+			<div class="logo form-group col-md-3 col-xs-12">
+				<a  href  ng-click='setKeyword("")' data-original-title="" title="">
+		   <img src="http://static.freshersworld.com/estore/images/estore_logo.png" height="47" width="310" alt="freshersworld" border="0"> 
+				</a>
+			</div>
+			<div class="form-group col-md-7 col-xs-12 searchBox">
+				<div class="col-xs-10 col-md-8">
+					<input type="text" class="form-control"  ng-enter="setKeyword(keywords)"  ng-model="keywords"
+					  placeholder="Search Books by Name, Author Name, ISBN" >
+				</div>
+				<div class="col-xs-1 col-md-2 ">
+					<input id="search_job_button" ng-click="setKeyword(keywords)" class="icnf-btn-srch"  name="yt0" type="button" value="">
+		
+				</div>
+			</div>
+		</div>
+		    <ng-view></ng-view>
+            <div class="pagi text-center" ng-show="pagination">
+                 <pagination  ng-change="pageChanged()" ng-model="currentPage"  total-items="totalItems" ng-show="totalItems > 1"  max-size="maxSize" class="pagination-sm" boundary-links="true"
+            num-pages="numPages"
+            previous-text="&lsaquo;" next-text="&rsaquo;"  first-text="&laquo;" last-text="&raquo;"></pagination></div>
+        </div>
+          <div ng-include="'ngApp/template/footer.html'"></div> 
+        <script src="resource/js/jquery-2.1.3.min.js"></script>
+		<script src="resource/js/bootstrap.min.js"></script>
+        <script src="resource/js/ui-bootstrap-tpls-0.12.0.js"></script>
+    </body>
+</html>

@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+      <script>document.write("<base href=\"" + document.location + "\" />");</script>
+    <meta name="author" content="">
+    <title>Register for DYC 2015</title>
+	
+	<!-- core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+</head><!--/head-->
+
+<body ng-app="register-app">
+    <header id="header">
+        <nav class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                     <a class="navbar-brand" href="index.html">Mtcdyc</a>
+                </div>
+				
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                         <li ><a href="index.html">Home</a></li>
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="services.html">History</a></li>
+                        <li class="active"><a href="register.html">Register here</a></li>
+                        <li><a href="blog.html">Check in</a></li> 
+                        <li><a href="contact-us.html">Contact</a></li>                                    
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+	</header><!--/header-->
+
+    <section id="about-us">
+        <div ng-controller="regController"   class="container">
+			<div class="center wow fadeInDown">
+				<h2>Register Here</h2>
+        <form role="form" id="registerForm" ng-submit="register.submit(registerForm)" 	name="registerForm">
+        <div class="box-border col-md-5 col-md-offset-4">
+        <div class="row">
+       	 
+	        <div class="col-md-3">
+	        	<label>Parish Name</label>
+	        </div>
+	         <div class="col-md-8">
+	         <div class="form-group">
+	        	<input type="text" class="form-control" ng-model="nameParish" value="" name="name" id="name" placeholder="Enter Your Name" required>
+	        </div>
+	        </div>
+        </div>
+          <div class="row">
+	        <div class="col-md-3">
+	        	<label>Email</label>
+	        </div>
+	         <div class="col-md-8">
+	         <div class="form-group">
+	        	<input type="email" class="form-control" ng-model="email" name="email" id="email" placeholder="Enter Your Email Id" required>
+	        </div>
+	        </div>
+	   
+        </div>
+          <div class="row">
+	        <div class="col-md-3">
+	        	<label>Password</label>
+	        </div>
+	         <div class="col-md-8">
+	         <div class="form-group">
+	        	<input type="password" class="form-control" minlenght="6" ng-model="pass"  name="pass" id="pass" placeholder="Enter Your Password" required>
+	        </div>
+	        </div>
+	   
+        </div>
+        <span name="errorMsg" class="errorMsg"  ng-model="errorMsg" >{{errorMsg}}</span>
+         <div class="row">
+	        <div class="col-md-3">
+	        </div>
+	         <div class="col-md-8">
+	         <div class="form-group">
+	        	 <input type="submit"  id="submitButton" class="btn btn-primary" value="Register" >	
+	        </div>
+	        </div>
+	   
+        </div>
+         
+        <br />
+
+        </div>
+          </form>
+			</div>
+			
+		
+
+		</div><!--/.container-->
+    </section><!--/about-us-->
+	
+   
+    <footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; Mtcdyc 2015  All Rights Reserved.
+                </div>
+               
+            </div>
+        </div>
+    </footer><!--/#footer-->
+    
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js">   </script>    
+
+    <script type="text/javascript">
+    var app=angular.module('register-app',['ngRoute']);
+	app.controller('regController',function($scope,  $http){
+			$scope.register = {
+		        submit: function(form) {
+		        	console.log();
+		        	if($scope.pass.length < 6){
+		        		$scope.errorMsg="Password length should be 6";
+		        	}else	if(form.$valid){
+		        		$scope.errorMsg='';
+		        		 $http.get("admin/churchRegister?parish="+$scope.nameParish+"&email="+$scope.email+"&pass="+$scope.pass)
+					        .success(function(data) {
+					            if(data == 1){
+					            	$scope.errorMsg = $scope.email + 	" is already registered, Please try different.";
+					            	console.log($scope.errorMsg);
+					            }else{
+					            	alert('You have successfully registered');
+					            }
+					        }).error(function(data, status) {
+					          
+					        });
+		        	}
+		        }
+    }
+		
+		
+	    /*      
+	    Here you can handle controller for specific route as well.
+	    */
+	});
+    </script>
+    <style type="text/css">
+    .errorMsg{
+    	display: inline-block;
+    	margin: 0 0 10px 130px;
+    	color: red;	
+    }
+    </style>
+</body>
+</html>
