@@ -14,7 +14,7 @@ $this->breadcrumbs=array(
 		display: none;
 	}
 </style>
-        <div  ng-controller="loginController" class="row">
+        <div class="row">
             <div class="col-md-5 col-md-offset-5">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
@@ -28,7 +28,7 @@ $this->breadcrumbs=array(
                                      placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password"  ng-model="password" name="password" required ng-minlength="3"
+                                    <input type="password" class="form-control" placeholder="Password"  ng-model="password" name="password" required ng-minlength="3"
                                      value="">
                                 </div>
                                 <?php if($login == 1){ ?>
@@ -42,7 +42,7 @@ $this->breadcrumbs=array(
                                 </div>
                                
                                 <!-- Change this to a button or input when using this as a form -->
-                                 <input type="submit"  id="submitButton" class="btn btn-lg btn-success btn-block" value="Register" > 
+                                 <input type="submit"  id="submitButton" class="btn btn-lg btn-success btn-block" value="Login" > 
                             </fieldset>
                         </form>
                     </div>
@@ -57,31 +57,3 @@ $this->breadcrumbs=array(
         color: red; 
     }
     </style>
-<script type="text/javascript">
-app.controller('loginController',function($scope,  $http){
-         
-            $scope.login = {
-                submit: function(form) {
-                    console.log(form);
-                     if(form.$valid){
-                        $scope.errorMsg='';
-                         $http.get("login?user="+$scope.username+"&pass="+$scope.password)
-                            .success(function(data) {
-                                if(data == 1){
-                                    $scope.errorMsg = $scope.email +    " is already registered, Please try different.";
-                                    console.log($scope.errorMsg);
-                                }else{
-                                    alert('You have successfully registered');
-                                }
-                            }).error(function(data, status) {
-                              
-                            });
-                    }
-                }
-    }
-        /*      
-        Here you can handle controller for specific route as well.
-        */
-    });
-   
-</script>

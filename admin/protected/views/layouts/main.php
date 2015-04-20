@@ -62,9 +62,6 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/resource/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Morris Charts JavaScript -->
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/resource/bower_components/raphael/raphael-min.JavaScript"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/resource/bower_components/morrisjs/morris.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/resource/js/morris-data.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/resource/dist/js/sb-admin-2.js"></script>
     

@@ -103,7 +103,19 @@
 
 		</div><!--/.container-->
     </section><!--/about-us-->
-	
+	<div class="modal fade" id="modalSuccess">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p id="msg"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
    
     <footer id="footer" class="midnight-blue">
         <div class="container">
@@ -124,18 +136,17 @@
 	app.controller('regController',function($scope,  $http){
 			$scope.register = {
 		        submit: function(form) {
-		        	console.log();
 		        	if($scope.pass.length < 6){
 		        		$scope.errorMsg="Password length should be 6";
 		        	}else	if(form.$valid){
 		        		$scope.errorMsg='';
-		        		 $http.get("admin/churchRegister?parish="+$scope.nameParish+"&email="+$scope.email+"&pass="+$scope.pass)
+		        		 $http.get("admin/site/churchRegister?parish="+$scope.nameParish+"&email="+$scope.email+"&pass="+$scope.pass)
 					        .success(function(data) {
 					            if(data == 1){
 					            	$scope.errorMsg = $scope.email + 	" is already registered, Please try different.";
-					            	console.log($scope.errorMsg);
 					            }else{
-					            	alert('You have successfully registered');
+					            	 $("#msg").html('You have successfully registered, Click <a href="admin/login">here</a> to login');
+					            	 $('#modalSuccess').modal('show');
 					            }
 					        }).error(function(data, status) {
 					          
@@ -157,5 +168,7 @@
     	color: red;	
     }
     </style>
+  <script src="admin/resource/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="admin/resource/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

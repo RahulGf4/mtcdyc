@@ -212,9 +212,12 @@
                                                             </div>
                                                         </div>
                                                         <?php
+                                                        if(count($participants) > 0){
+
+                                                      
                                                             foreach ($participants as $key => $value) { 
                                                                 ?>
-                                                                                   <div class="col-md-12">
+                                                          <div class="col-md-12">
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <input type="text" class="form-control" name="pName1" id="pName1" value="<?= $value[0] ?>" placeholder="Enter Your Name" required>
@@ -251,8 +254,42 @@
                                                                         </div>
 
                                                        <?php     }
-                                                         ?> 
-                                    
+                                                         }else{ ?>
+
+                                                                     <div class="col-md-12">
+                                                               <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" name="pName1" id="pName1" value="" placeholder="Enter Your Name" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <input type="tel" class="form-control"  pattern="[0-9]{10}" name="pNo1" id="pNo1" value="" placeholder="Your Mobile No" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" name="pAge1" id="pAge1" value="" placeholder="Age" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <select class="form-control" name="pSex1" required>
+                                                                                    <option   value="">Select</option>
+                                                                                    <option   value="Male">Male</option>
+                                                                                    <option  value="Female">Female</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <input type="email" class="form-control" name="pEmail1" id="pEmail1" value=" " placeholder="Enter Email Id" required>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                     <?php    }
+                                                         ?>
+                                                          
                                                                     </div>
                                                                     <div class="row ">
                                                                         <div class="col-md-9" ></div>
