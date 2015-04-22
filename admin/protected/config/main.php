@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Shop in Freshersworld e-Store',
+	'name'=>'Mtcdyc Login',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -53,9 +53,9 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=31.170.167.76;dbname=u464880057_mtc',
+			'connectionString' => 'mysql:host=localhost;dbname=test',
 			'emulatePrepare' => true,
-			'username' => 'u464880057_mtc',
+			'username' => 'root',
 			'password' => '123456',
 			'charset' => 'utf8',
 		),

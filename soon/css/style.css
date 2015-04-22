@@ -96,11 +96,11 @@ ul#countdown li p.timeRefSeconds {
 .content .home{
 	float: right;
 	margin-right: 80px;
-	width: 30px;
+	width: 40px;
 	opacity: 1px !important;
 }
 .home img{
-	opacity: .3;
+	opacity: .5;
 }
 
 
@@ -183,6 +183,9 @@ ul#countdown li p.timeRefSeconds {
 	.content {
 		margin-top: 0.7em;
 	}
+	.mainLogo{
+		margin-left: 100px;
+	}
 }
 @media only screen and (max-width: 1280px) and (min-width: 1024px) {
 	.wrap{
@@ -193,6 +196,9 @@ ul#countdown li p.timeRefSeconds {
 	}
 	.content {
 		margin-top: 2em;
+	}
+	.mainLogo{
+		margin-left: 100px;
 	}
 }
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
@@ -207,6 +213,9 @@ ul#countdown li p.timeRefSeconds {
 	}
 	ul#countdown li {
 		width: 6%;
+	}
+	.mainLogo{
+		margin-left: 100px;
 	}
 }
 @media only screen and (max-width: 768px) and (min-width: 640px) {
