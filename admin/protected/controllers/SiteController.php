@@ -1,10 +1,10 @@
 <?php
- 
 class SiteController extends Controller
 {
 	/**
 	 * Declares class-based actions.
 	 */ 
+	
 	public $metaDescription;
 	public $metaKeywords;
 
@@ -71,25 +71,46 @@ class SiteController extends Controller
 
 		public function actionChurchRegister()
 	{
-
+		$email =$_GET['email'];
+		$subject='Registered for DYC 2015';
+		$pass=$this->generateRandomString(6);
 		 $sql = "SELECT * FROM chruch_list where email ='".$_GET['email']."'";
 		 $dataReader =  Yii::app()->db->createCommand($sql)->queryRow();
 		 if(isset($dataReader['id'])){
 		 	echo 1;exit();
 		 }else{
-		 	 $updateSql = "INSERT INTO chruch_list (email,church_name,pass) VALUES('".$_GET['email']."','".$_GET['parish']."','".$_GET['pass']."')";
-			 $updateSql = Yii::app()->db->createCommand($updateSql)->execute();
-			
+
+		 	 $updateSql = "INSERT INTO chruch_list (email,church_name,pass) VALUES('".$_GET['email']."','".$_GET['parish']."','".$pass."')";
+			 $updateSqlExec = Yii::app()->db->createCommand($updateSql)->execute();
 			$sql = "SELECT * FROM chruch_list where email ='".$_GET['email']."'";
-			 $dataReader =  Yii::app()->db->createCommand($sql)->queryRow();
+			$dataReader =  Yii::app()->db->createCommand($sql)->queryRow();
 			 Yii::app()->db->createCommand("INSERT INTO users (cid) VALUES('".$dataReader['id']."')")->execute();
 			 Yii::app()->db->createCommand("INSERT INTO transport (cid) VALUES('".$dataReader['id']."')")->execute();
 			 Yii::app()->db->createCommand("INSERT INTO participants (cid) VALUES('".$dataReader['id']."')")->execute();
-			  echo 2;exit();
+			 if($updateSqlExec){
+			 	 
+				 $content="Hi,<br/><br/>
+				 Click <a href='http://www.mtcdyc.com/admin/login'>here</a> to login by using below crendentials,<br/><br/>
+				 username - ".$email."<br/>
+				 password - ".$pass."
+				 <br/><br/>Thanks,<br/>Admin";
+				 $from='mtcdyc@gmail.com';
+				 $this->sendMail($_GET['email'],$from, $content,$subject);
+			 }
+			
+			 echo 2;exit();
 
 		 }
         }
-
+        public function generateRandomString($length = 10) {
+		    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		    $charactersLength = strlen($characters);
+		    $randomString = '';
+		    for ($i = 0; $i < $length; $i++) {
+		        $randomString .= $characters[rand(0, $charactersLength - 1)];
+		    }
+		    return $randomString;
+		}
      	public function actionRegisterDetails()
 	{
 		$user = Yii::app()->session['churchDetails'];
@@ -162,6 +183,27 @@ class SiteController extends Controller
 		$this->render('login',array('login' => $login));
 	}
 	
+	public function sendMail($to='viduthalai.m@gmail.com', $from='mtcdyc@gmail.com', $content='',$subject='Hi'){
+		// Swift Mailer Library
+		// Mail Transport$to = "somebody@example.com";
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+		$headers .= "From:" .$from. "\r\n";
+		mail($to,$subject,$content,$headers);	exit();
+		
+		$message = new YiiMailMessage;
+	        $message->subject = $subject;
+	        $message->setBody($content, 'text/html');                
+	        $message->addTo($to);
+	        $message->from = $from;   
+	        $sent= Yii::app()->mail->send($message);      
+	        if($sent){
+	        	return true;
+	        }
+		
+			}
+
 	public function actionLogout()
 	{
 		unset(Yii::app()->session['churchDetails']);
