@@ -53,7 +53,7 @@
     <div class="col-md-2 sideBar">
     	<?php include 'sideBar.php'; ?>
           </div>
-<div class="col-md-10"> 
+<div class="col-md-10 contentMain"> 
 	   		<?php echo $content; ?>    	
 </div>
 

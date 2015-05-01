@@ -3,7 +3,7 @@
 $(document).ready(function() {
 						   
 	$("#countdown").countdown({
-				date: "25 May 2015 12:00:00",
+				date: "14 May 2015 10:00:00",
 				format: "on"
 			},
 			

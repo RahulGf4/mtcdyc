@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Mtcdyc</a>
+                <a class="navbar-brand" href="index.html">Diocesan Youth Conference 20015</a>
             </div>
             <!-- /.navbar-header -->
 

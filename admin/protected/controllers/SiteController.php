@@ -69,6 +69,32 @@ class SiteController extends Controller
 		$this->render('register', array('users'=>$users,'transport'=>$transport,'participants'=>$participants));
 	}
 
+		public function actionParishList()
+	{
+		$user = Yii::app()->session['churchDetails'];
+		if(isset($_POST['email'])){
+				$email =$_POST['email'];
+				$pass =$_POST['pass'];
+				$subject='Registered for DYC 2015';
+				$content="Hi,<br/><br/>
+				 Click <a href='http://www.mtcdyc.com/admin/login'>here</a> to login by using below crendentials,<br/><br/>
+				 username - ".$email."<br/>
+				 password - ".$pass."
+				 <br/><br/>Thanks,<br/>Admin";
+				 $from='mtcdyc@gmail.com';
+				 $this->sendMail($email,$from, $content,$subject);
+				 echo 1;
+		}else
+		 if(isset($user['id'])){
+		 	 $sql = "SELECT * FROM chruch_list limit 50";
+			 $dataReader =  Yii::app()->db->createCommand($sql)->queryALL();
+			 $this->render('parishList', array('user'=>$user,'dataReader'=>$dataReader));
+		 }
+		else{
+				$this->redirect('login');
+		}
+	}
+
 		public function actionChurchRegister()
 	{
 		$email =$_GET['email'];
@@ -117,12 +143,13 @@ class SiteController extends Controller
 			if($user['id']){
 					$data = json_decode($_POST['datastring']);
 					$insertUsers = "UPDATE users SET cid='".$user['id']."',vicarName='".$data[0]->value."',vicarNo='".$data[1]->value."',
-					vicarEmail='".$data[2]->value."',youthName='".$data[3]->value."',youthNo='".$data[4]->value."',youthEmail='".$data[5]->value."' WHERE cid ='".$user['id']."'";
+					vicarEmail='".$data[2]->value."',youthName='".$data[3]->value."',youthNo='".$data[4]->value."',youthEmail='".$data[5]->value."'
+					 WHERE cid ='".$user['id']."'";
 
-					$insertTransport = "UPDATE transport SET arrivalType='".$data[6]->value."',arrivalPlace='".$data[7]->value."',
-					arrivalTime='".$data[8]->value."',departType='".$data[9]->value."',departPlace='".$data[10]->value."',
-					departTime='".$data[11]->value."',visitorName='".$data[12]->value."',visitorNo='".$data[13]->value."',
-					visitorFamily='".$data[14]->value."',noChilds='".$data[15]->value."',noAdults='".$data[16]->value."' WHERE cid ='".$user['id']."'";
+					$insertTransport = "UPDATE transport SET arrivalType='".$data[6]->value."',arrivalPlace='".$data[7]->value."',arrivalTime='".$data[9]->value."',arrivalCount='".$data[8]->value."',
+					visitorName='".$data[10]->value."',visitorNo='".$data[11]->value."',visitorFamily='".$data[12]->value."',noChilds='".$data[14]->value."',noAdults='".$data[13]->value."',
+					visitorName2='".$data[15]->value."',visitorNo2='".$data[16]->value."',visitorFamily2='".$data[17]->value."',noChilds2='".$data[19]->value."',noAdults2='".$data[18]->value."'
+					 WHERE cid ='".$user['id']."'";
 				 	$insertUsersCmd = Yii::app()->db->createCommand($insertUsers)->execute();
 				    $insertTransportCmd = Yii::app()->db->createCommand($insertTransport)->execute();
 			}else{
@@ -139,6 +166,18 @@ class SiteController extends Controller
 					$data = json_decode($_POST['datastring']);
 					$insertUsers = "UPDATE participants SET pName ='".$_POST['datastring']."' WHERE cid ='".$user['id']."'";
 				 	$insertUsersCmd = Yii::app()->db->createCommand($insertUsers)->execute();
+				 	if(isset($_POST['sendEmail']) && $_POST['type']){
+						$subject='Registered Details for DYC 2015';
+						$content="Hi,<br/><br/>
+						 Click <a href='http://www.mtcdyc.com/admin/login'>here</a> to download the list,<br/><br/>
+						 <br/><br/>Thanks,<br/>Admin";
+						 $from='mtcdyc@gmail.com';
+				 		foreach ($_POST['sendEmail'] as $key => $value) {
+				 			$email = $value;
+				 			echo $email;
+				 			$this->sendMail($email,$from, $content,$subject);
+				 		}
+				 	}
 			}else{
 				echo 1;
 			}
@@ -174,7 +213,7 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if(isset($dataReader['id'])){
 				Yii::app()->session['churchDetails'] = $dataReader;
-				$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect('register');
 			}else{
 				$login =1;
 			}
@@ -208,6 +247,6 @@ class SiteController extends Controller
 	{
 		unset(Yii::app()->session['churchDetails']);
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect('login');
 	}
 }
