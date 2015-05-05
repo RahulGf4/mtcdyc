@@ -9,13 +9,23 @@ $this->breadcrumbs=array(
 );
 ?>
 <style type="text/css">
-
+.contentMain{
+        background-color: #f8f8f8;
+}
 	.sideBar, nav{
 		display: none;
 	}
+    .login-panel {
+    margin-top: 10%;
+}
 </style>
         <div class="row">
-            <div class="col-md-5 col-md-offset-5">
+        <div class="col-md-8 col-md-offset-3 text-center">
+        <br /><br />
+         <h2>The Mar Thoma Syrian Church of Malabar <br/></h2>
+         <h3>Chennai - Bangalore Diocese</h3>
+         </div>
+            <div class="col-md-4 col-md-offset-5" style="margin-left:42%">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Please Sign In</h3>
@@ -25,7 +35,7 @@ $this->breadcrumbs=array(
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" ng-model="username" name="username" required ng-minlength="3" 
-                                     placeholder="E-mail" name="email" type="email" autofocus>
+                                     placeholder="User-Id" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control" placeholder="Password"  ng-model="password" name="password" required ng-minlength="3"

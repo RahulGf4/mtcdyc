@@ -48,7 +48,10 @@ class SiteController extends Controller
 			$this->redirect('login');
 		}
 	}
-	
+	public function actionPartPdf()
+	{
+		$this->renderPartial('partPdf');
+	}
 
 		public function actionRegister()
 	{
@@ -158,31 +161,33 @@ class SiteController extends Controller
 			exit;
         }   
 
-        	public function actionPartDetails()
-	{
+        	public function actionPartDetails(){
 		$user = Yii::app()->session['churchDetails'];
 
 			if($user['id']){
 					$data = json_decode($_POST['datastring']);
 					$insertUsers = "UPDATE participants SET pName ='".$_POST['datastring']."' WHERE cid ='".$user['id']."'";
 				 	$insertUsersCmd = Yii::app()->db->createCommand($insertUsers)->execute();
-				 	if(isset($_POST['sendEmail']) && $_POST['type']){
-						$subject='Registered Details for DYC 2015';
-						$content="Hi,<br/><br/>
-						 Click <a href='http://www.mtcdyc.com/admin/login'>here</a> to download the list,<br/><br/>
-						 <br/><br/>Thanks,<br/>Admin";
-						 $from='mtcdyc@gmail.com';
-				 		foreach ($_POST['sendEmail'] as $key => $value) {
-				 			$email = $value;
-				 			echo $email;
-				 			$this->sendMail($email,$from, $content,$subject);
-				 		}
-				 	}
 			}else{
 				echo 1;
 			}
 			exit;
-        }   
+        }  
+
+         public function actionSendPartDetails(){
+         	$user = Yii::app()->session['churchDetails'];
+
+				 	if(isset($_POST['sendEmail']) && $user['id']){
+						$subject='Registered Details for DYC 2015';
+						$content="Hi,<br/><br/>
+						 Click <a href='http://www.mtcdyc.com/admin/partPdf?id=".base64_encode($user['id'])."'>here</a> to download the list,<br/><br/>
+						 <br/><br/>Thanks,<br/>Admin";
+						 $from='mtcdyc@gmail.com';
+						 echo $_POST['sendEmail'];
+						 $this->sendMail($_POST['sendEmail'],$from, $content,$subject);
+				 	}
+		
+        } 
 	/**
 	 * This is the action to handle external exceptions.
 	 */

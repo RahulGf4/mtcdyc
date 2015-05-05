@@ -199,6 +199,9 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <?php
+                        $user = Yii::app()->session['churchDetails'];
+                        echo   $user['church_name'];                   ?>
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">

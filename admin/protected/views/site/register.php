@@ -389,7 +389,6 @@
                     emails[1] =$("#youthEmail").val();
                     emails[2] ="dyc15info@gmail.com";
                 }
-             
                 console.log(emails);
                 var data = JSON.stringify($("#partRegister").serializeArray());
                  $.ajax({
@@ -400,11 +399,30 @@
                         if(type==1){
                             $("#msg").html('Participants list updated successFully');
                             $('#modalSuccess').modal('show');    
+                            for (var i = emails.length - 1; i >= 0; i--) {
+                                sendPartSubmit(emails[i])
+                            };
                         }
                         
                     }
                 });
              }
+         function sendPartSubmit(email){
+                   console.log(email);
+                 $.ajax({
+                    url: "SendPartDetails",
+                    method: "POST",
+                    data: {sendEmail:email},
+                    success: function(){
+                        if(type==1){
+                            $("#msg").html('Participants list updated successFully');
+                            $('#modalSuccess').modal('show');    
+                        }
+                        
+                    }
+                });
+             }
+
                $("#registerForm").validate({
                      rules: {
                         vicarNo: {
@@ -466,9 +484,9 @@
     });
    $(".arrivalType").on('change', function(){
         if($(this).val() == 1){
-            $('#arrivalPlace').val('Bangalore Cant');
+            $('#arrivalPlace').val('Bangalore Cantonment');
         }else if($(this).val() == 2){
-            $('#arrivalPlace').val('Bangalore City Parish,Primrose rd');
+            $('#arrivalPlace').val('Bangalore City Parish, Primrose Rd');
         }else{
             $('#arrivalPlace').val('');
         }
